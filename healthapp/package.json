@@ -7,9 +7,11 @@
   "license": "ISC",
   "type": "module",
   "scripts": {
-    "calculateBmi": "tsc && node bmiCalculator.ts"
+    "calculateBmi": "tsc && node bmiCalculator.ts",
+    "calculateExercises": "tsc && node exerciseCalculator.ts"
   },
   "devDependencies": {
+    "@types/node": "^26.2.0",
     "typescript": "^7.0.2"
   }
 }
