@@ -8,4 +8,19 @@ const calculateBmi = (height: number, weight: number): string => {
   return "Obese";
 };
 
-console.log(calculateBmi(180, 74));
+const args = process.argv.slice(2);
+
+if (args.length !== 2) {
+  console.error("Usage: npm run calculateBmi <height_in_cm> <weight_in_kg>");
+  process.exit(1);
+}
+
+const height = Number(args[0]);
+const weight = Number(args[1]);
+
+if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+  console.error("Height and weight must be positive numbers.");
+  process.exit(1);
+}
+
+console.log(calculateBmi(height, weight));
