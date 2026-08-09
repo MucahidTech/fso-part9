@@ -8,7 +8,7 @@ interface ExerciseResult {
   average: number;
 }
 
-const calculateExercises = (
+export const calculateExercises = (
   dailyExerciseHours: number[],
   target: number,
 ): ExerciseResult => {
@@ -43,35 +43,37 @@ const calculateExercises = (
   };
 };
 
-const parseArguments = (
-  args: string[],
-): { target: number; dailyHours: number[] } => {
-  if (args.length < 4) {
-    throw new Error("Usage: npm run calculateExercises <target> <hours...>");
-  }
-
-  const target = Number(args[2]);
-  if (isNaN(target)) {
-    throw new Error("Target must be a number");
-  }
-
-  const dailyHours = args.slice(3).map((arg) => {
-    const hours = Number(arg);
-    if (isNaN(hours)) {
-      throw new Error("All hours must be numbers");
+if (process.argv[1] === import.meta.filename) {
+  const parseArguments = (
+    args: string[],
+  ): { target: number; dailyHours: number[] } => {
+    if (args.length < 4) {
+      throw new Error("Usage: npm run calculateExercises <target> <hours...>");
     }
-    return hours;
-  });
 
-  return { target, dailyHours };
-};
+    const target = Number(args[2]);
+    if (isNaN(target)) {
+      throw new Error("Target must be a number");
+    }
 
-try {
-  const { target, dailyHours } = parseArguments(process.argv);
-  const result = calculateExercises(dailyHours, target);
-  console.log(result);
-} catch (error) {
-  if (error instanceof Error) {
-    console.log("Error:", error.message);
+    const dailyHours = args.slice(3).map((arg) => {
+      const hours = Number(arg);
+      if (isNaN(hours)) {
+        throw new Error("All hours must be numbers");
+      }
+      return hours;
+    });
+
+    return { target, dailyHours };
+  };
+
+  try {
+    const { target, dailyHours } = parseArguments(process.argv);
+    const result = calculateExercises(dailyHours, target);
+    console.log(result);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log("Error:", error.message);
+    }
   }
 }
